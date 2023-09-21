@@ -11,8 +11,8 @@ app.post('/', memberController.addMember)
 
 app.post('/find', memberController.findMember)
 
-app.put('/', memberController.updateMember)
+app.put('/:id', memberController.updateMember)
 
-app.delete('/', memberController.deleteMember)
+app.delete('/:id', memberController.deleteMember)
 
 module.exports = app
