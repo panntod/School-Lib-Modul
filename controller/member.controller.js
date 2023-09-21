@@ -5,7 +5,7 @@ const memberModel = require("../models/index").member
 const Op = require("sequelize").Op
 
 //load upload method
-const upload = require('./upload-foto').single('foto')
+const upload = require('./upload-foto-member').single('foto')
 
 //load path
 const path = require('path')
@@ -92,7 +92,7 @@ exports.updateMember = async (req, res) => {
     if(error) {
       return res.json({message:error})
     }
-    let idMember = request.params.id;
+    let idMember = req.params.id;
     let dataMember = {
       name: req.body.name,
       address: req.body.address,
@@ -103,7 +103,7 @@ exports.updateMember = async (req, res) => {
     if(!req.file){
       const selectedMember = await memberModel.findOne({ where: {id : idMember} })
       const oldFoto = selectedMember.foto
-      const pathFotoMurid = path.join(__dirname,`../foto-murid`,oldFoto)
+      const pathFotoMurid = path.join(__dirname,`../foto-murid`,oldFoto.toString())
       if (fs.existsSync (pathFotoMurid)){
         fs.unlink(pathFotoMurid, err => {
           console.log(idMember, err)
