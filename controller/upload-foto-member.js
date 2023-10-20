@@ -5,7 +5,7 @@ const storage = multer.diskStorage({
         cb(null,`./foto-member`)
     },
     filename:(req,file,cb)=> {
-        cb(null,`foto-${Date.now()}${path.extname(file.originalname)}`)
+        cb(null,`foto-member-${Date.now()}${path.extname(file.originalname)}`)
     }
 })
 const upload = multer({ 
@@ -16,14 +16,12 @@ const upload = multer({
             cb(null, false)
             return cb(`invalid type file ${file.mimetype}`)
         }
-
         const fileSize = req.headers['content-length']
         const maxSize = (1 * 1024 * 1024)
         if(fileSize > maxSize){
             cb(null, false)
             return cb(`this file is too large`)
         }
-
         cb(null,true)
     }
 })

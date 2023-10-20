@@ -14,8 +14,9 @@ const bookRoute = require('./routes/book.route')
 
 app.use(express.static(__dirname))
 app.use('/member', memberRoute)
-app.use('/admin', adminRoute)
+app.use(`/admin`, adminRoute)
 app.use('/book', bookRoute)
+app.use(express.static(__dirname))
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}...`)

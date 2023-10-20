@@ -4,14 +4,16 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "md5": "^2.3.0",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.6.0",
     "path": "^0.12.7",
-    "sequelize": "^6.32.1"
+    "sequelize": "^6.33.0"
   },
   "name": "ujicobanuklir",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
