@@ -80,17 +80,13 @@ exports.updateMember = async (req, res) => {
         where: { id: idMember },
       });
       const oldFoto = selectedMember.foto;
-      const pathFotoMurid = path.join(
-        __dirname,
-        `../foto-member`,
-        oldFoto.toString()
-      );
+      const pathFotoMurid = path.join(__dirname,`../foto-member`,oldFoto)
       if (fs.existsSync(pathFotoMurid)) {
-        fs.unlink(pathFotoMurid, (err) => {
+        fs.unlinkSync(pathFotoMurid, (err) => {
           console.log(idMember, err);
         });
       }
-      murid.foto = request.file.filename;
+      dataMember.foto = req.file.filename;
     }
     memberModel
       .update(dataMember, { where: { id: idMember } })
@@ -101,7 +97,7 @@ exports.updateMember = async (req, res) => {
           message: "Data member has been update",
         });
       })
-      .cath((err) => {
+      .catch((err) => {
         return res.json({
           succes: false,
           message: err.message,
@@ -126,6 +122,7 @@ exports.deleteMember = async (req, res) => {
     .then((fields) => {
       return res.json({
         succes: true,
+        data: fields,
         message: "Data Member has been deleted",
       });
     })
