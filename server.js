@@ -11,11 +11,13 @@ app.use(cors())
 const memberRoute = require('./routes/member.route')
 const adminRoute = require('./routes/admin.route')
 const bookRoute = require('./routes/book.route')
+const borrowRoute = require('./routes/borrow.route')
 
 app.use(express.static(__dirname))
 app.use('/member', memberRoute)
 app.use(`/admin`, adminRoute)
 app.use('/book', bookRoute)
+app.use('/borrow', borrowRoute)
 app.use(express.static(__dirname))
 
 app.listen(port, () => {
