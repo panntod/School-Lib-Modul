@@ -20,15 +20,14 @@ exports.addBorrowing = async (req, res) => {
         detailsOfBorrow[i].borrowID = borrowID;
       }
 
-      detailsOfBorrowModel
-        .bulkCreate(detailsOfBorrow)
+      detailsOfBorrowModel.bulkCreate(detailsOfBorrow)
         .then((result) => {
           return res.json({
             success: true,
             message: "New Book Borrowed Has Been Inserted",
           });
         })
-        .cath((err) => {
+        .catch((err) => {
           return res.json({
             success: false,
             message: err.message,
@@ -70,7 +69,7 @@ exports.updateBorrowing = async (req, res) => {
             message: "New Book Borrowed Has Been Update",
           });
         })
-        .cath((err) => {
+        .catch((err) => {
           return res.json({
             success: false,
             message: err.message,
