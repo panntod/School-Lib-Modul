@@ -15,9 +15,11 @@ const memberRoute = require('./routes/member.route')
 const adminRoute = require('./routes/admin.route')
 const bookRoute = require('./routes/book.route')
 const borrowRoute = require('./routes/borrow.route')
+const auth = require('./routes/auth.route')
 
 // supaya menggunakan folder/ direktori yang ada
 app.use(express.static(__dirname))
+app.use('/auth', auth)
 // menggunakan endpoint
 app.use('/member', memberRoute)
 app.use(`/admin`, adminRoute)
