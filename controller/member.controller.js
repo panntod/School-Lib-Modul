@@ -1,11 +1,15 @@
+// mengimport variabel dari file lain dan dependensi yang dibutuhkan
 const upload = require("./upload-foto-member").single("foto");
 const memberModel = require("../models/index").member;
 const Op = require("sequelize").Op;
 const path = require("path");
 const fs = require("fs");
 
+//mengeksport variabel supaya bisa digunakan di file lain
 exports.getAllMember = async (req, res) => {
+  // menunggu proses mengambil semua data
   let members = await memberModel.findAll();
+  //mengirim data
   return res.json({
     succes: true,
     data: members,
@@ -13,8 +17,11 @@ exports.getAllMember = async (req, res) => {
   });
 };
 
+//mengeksport variabel supaya bisa digunakan di file lain
 exports.findMember = async function (req, res) {
+  // mengambil variabel keyword dari inputan 
   let keyword = req.body.keyword;
+  // menunggu proses mencari data sesuai dengan keyword
   let members = await memberModel.findAll({
     where: {
       [Op.or]: [
@@ -24,6 +31,7 @@ exports.findMember = async function (req, res) {
       ],
     },
   });
+  // mengirim data
   return res.json({
     succes: true,
     data: members,
@@ -31,14 +39,15 @@ exports.findMember = async function (req, res) {
   });
 };
 
+//mengeksport variabel supaya bisa digunakan di file lain
 exports.addMember = async (req, res) => {
+  // menggunakan function upload
   upload(req, res, async (error) => {
-    if (error) {
-      return res.json({ message: error });
-    }
-    if (!req.file) {
-      return res.json({ message: "nothing to upload" });
-    }
+    // jika terjadi eror
+    if (error) return res.json({ message: error });
+    //jika tidak ada file yang di upload
+    if (!req.file) return res.json({ message: "nothing to upload" });
+    //menyiapkan data
     let newMember = {
       name: req.body.name,
       address: req.body.addres,
@@ -46,8 +55,9 @@ exports.addMember = async (req, res) => {
       contact: req.body.contact,
       foto: req.file.filename,
     };
-    memberModel
-      .create(newMember)
+    //memproses buatkan data
+    memberModel.create(newMember)
+    //jika berhasil maka buka dengan then
       .then((fields) => {
         return res.json({
           succes: true,
@@ -55,6 +65,7 @@ exports.addMember = async (req, res) => {
           message: "New Member has been added",
         });
       })
+      //jika gagal maka buka dengan catch
       .catch((error) => {
         return res.json({
           success: false,
@@ -63,33 +74,42 @@ exports.addMember = async (req, res) => {
       });
   });
 };
+
+//mengeksport variabel supaya bisa digunakan di file lain
 exports.updateMember = async (req, res) => {
+  //menggunakan function upload
   upload(req, res, async (error) => {
-    if (error) {
-      return res.json({ message: error });
-    }
+    //jika terjadi error
+    if (error) return res.json({ message: error });
+    //mengambil id menggunakan params
     let idMember = req.params.id;
+    //menyiapkan data user
     let dataMember = {
       name: req.body.name,
       address: req.body.address,
       gender: req.body.gender,
       contact: req.body.contact,
     };
+    // jika ada file foto bary
     if (req.file) {
-      const selectedMember = await memberModel.findOne({
-        where: { id: idMember },
-      });
+      // mengambil data member yang terpilih sesuai id
+      const selectedMember = await memberModel.findOne({ where: { id: idMember }});
+      // mengambil foto lama dan disimpan divariabek
       const oldFoto = selectedMember.foto;
+      // menyesuaikan nama sesuai dengan path nya
       const pathFotoMurid = path.join(__dirname,`../foto-member`,oldFoto)
+      // jika ada data yang muncul maka akan dihapus
       if (fs.existsSync(pathFotoMurid)) {
-        fs.unlinkSync(pathFotoMurid, (err) => {
-          console.log(idMember, err);
-        });
+        fs.unlinkSync(pathFotoMurid, (err) => console.log(idMember, err) );
       }
+
+      // menambahkan foto sesuai dengan inputan
       dataMember.foto = req.file.filename;
     }
-    memberModel
-      .update(dataMember, { where: { id: idMember } })
+
+    // menjalankan proses update
+    memberModel.update(dataMember, { where: { id: idMember } })
+    // jika berhasil buka promise dengan then
       .then((field) => {
         return res.json({
           succes: true,
@@ -97,6 +117,7 @@ exports.updateMember = async (req, res) => {
           message: "Data member has been update",
         });
       })
+      // jika gagal buka promise dengan catch
       .catch((err) => {
         return res.json({
           succes: false,
@@ -105,20 +126,24 @@ exports.updateMember = async (req, res) => {
       });
   });
 };
+
+//mengeksport variabel supaya bisa digunakan di file lain
 exports.deleteMember = async (req, res) => {
+  //mengambil id menggunakan params
   const idMember = req.params.id;
+  // menunggu proses mencari member menggunakan id
   const member = await memberModel.findOne({ where: { id: idMember } });
+  // menyimpan foto lama di variabel
   const oldFoto = member.foto;
-  const pathFotoMurid = path.join(
-    __dirname,
-    `../foto-murid`,
-    oldFoto.toString()
-  );
+  // memberikan nama sesuai dengan path folder nya
+  const pathFotoMurid = path.join(__dirname,`../foto-murid`,oldFoto.toString());
+  // jika foto ditemukan maka akan dihapus
   if (fs.existsSync(pathFotoMurid)) {
     fs.unlink(pathFotoMurid, (error) => console.log(error));
   }
-  memberModel
-    .destroy({ where: { id: idMember } })
+  //mengapus data member sesuai dengan id
+  memberModel.destroy({ where: { id: idMember } })
+  // jika berhasil maka buka promise dengan then
     .then((fields) => {
       return res.json({
         succes: true,
@@ -126,6 +151,7 @@ exports.deleteMember = async (req, res) => {
         message: "Data Member has been deleted",
       });
     })
+    // jika gagal buka promise dengan catch
     .catch((err) => {
       return res.json({
         succes: false,
