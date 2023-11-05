@@ -11,14 +11,14 @@
     "path": "^0.12.7",
     "sequelize": "^6.33.0"
   },
-  "name": "ujicobanuklir",
+  "name": "school-lib",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "author": "Pandhu Arya Munjalindra || @panntod",
+  "license": "MIT",
+  "description": "belajar node js sesuai dengan modul yang diberikan, memberi penjelasan untuk setiap code yang ada sesuai dengan pemahaman saya"
 }
