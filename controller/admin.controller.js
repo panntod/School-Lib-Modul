@@ -4,12 +4,13 @@ const adminModel = require("../models/index").admin;
 const Op = require("sequelize").Op;
 const path = require("path");
 const fs = require("fs");
+const md5 = require('md5')
 
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.getAllAdmin = async (req, res) => {
   // menyiapkan data admin
   let admins = await adminModel.findAll();
-  // mengirim data yang sudah disiapkan 
+  // mengirim data yang sudah disiapkan
   return res.json({
     succes: true,
     data: admins,
@@ -43,20 +44,23 @@ exports.addAdmin = async (req, res) => {
     if (err) return res.json({ message: err });
     // jika tidak ada file yang diapload
     if (!req.file) return res.json({ message: "nothing to upload" });
-    
+
     // menyiapkan data
     let newAdmin = {
       name: req.body.name,
       address: req.body.address,
       contact: req.body.contact,
       username: req.body.username,
-      password: req.body.password,
       foto: req.file.filename,
     };
 
+    // Enkripsi kata sandi menggunakan MD5
+    newAdmin.password = md5(req.body.password);
+
     // menjalankan proses upload sesuai dengan data
-    adminModel.create(newAdmin)
-    // jika berhasil maka buka promise dengan then
+    adminModel
+      .create(newAdmin)
+      // jika berhasil maka buka promise dengan then
       .then((result) => {
         return res.json({
           succes: true,
@@ -64,7 +68,7 @@ exports.addAdmin = async (req, res) => {
           message: "New Admin has been added",
         });
       })
-    //jika gagal maka buka promise dengan catch
+      //jika gagal maka buka promise dengan catch
       .catch((error) => {
         return res.json({
           succes: false,
@@ -83,24 +87,27 @@ exports.updateAdmin = async (req, res) => {
     //mengambil id admin dengan params
     const idAdmin = req.params.id;
     // menyiapkan data admin
-    const dataAdmin = {
+    let dataAdmin = {
       name: req.body.name,
       address: req.body.address,
       contact: req.body.contact,
       username: req.body.username,
-      password: req.body.password,
       foto: req.file.filename,
     };
+        
+    // Enkripsi kata sandi menggunakan MD5
+    dataAdmin.password = md5(req.body.password);
+    
     //jika ada file yang dipilih
     if (req.file) {
-      //menyiapkan data admin untuk tempat menaruh foto 
+      //menyiapkan data admin untuk tempat menaruh foto
       const selectedAdmin = await adminModel.findOne({
         where: { id: idAdmin },
       });
       // menyiapkan data foto
       const oldFoto = selectedAdmin.foto;
       // membuat nama baru untuk file yang disimpan sesuai dengan folder
-      const pathFotoAdmin = path.join(__dirname,`../foto-admin`,oldFoto);
+      const pathFotoAdmin = path.join(__dirname, `../foto-admin`, oldFoto);
       // jika sudah ada foto lama maka akan dihapus
       if (fs.existsSync(pathFotoAdmin)) {
         fs.unlink(pathFotoAdmin, (err) => {
@@ -111,8 +118,9 @@ exports.updateAdmin = async (req, res) => {
       dataAdmin.foto = req.file.filename;
     }
     // menjalankan proses update
-    adminModel.update(dataAdmin, { where: { id: idAdmin } })
-    // jika berhasil maka buka promise dengan then
+    adminModel
+      .update(dataAdmin, { where: { id: idAdmin } })
+      // jika berhasil maka buka promise dengan then
       .then((field) => {
         return res.json({
           succes: true,
@@ -120,7 +128,7 @@ exports.updateAdmin = async (req, res) => {
           message: "Data admin has been update",
         });
       })
-    //jika gagal maka buka promise dengan catch
+      //jika gagal maka buka promise dengan catch
       .catch((err) => {
         return res.json({
           succes: false,
@@ -139,14 +147,15 @@ exports.deleteAdmin = async (req, res) => {
   //mengambil foto disimpan divariabel foto lama
   const oldFoto = admin.foto;
   // menamakan foto sesuai dengan foldernya
-  const pathFotoAdmin = path.join(__dirname,`../foto-admin`, oldFoto);
+  const pathFotoAdmin = path.join(__dirname, `../foto-admin`, oldFoto);
   // jika foto ada maka akan di hapus
   if (fs.existsSync(pathFotoAdmin)) {
     fs.unlinkSync(pathFotoAdmin, (error) => console.log(error));
   }
   // menghapus data admin sesuai dengan id
-  adminModel.destroy({ where: { id: idAdmin } })
-  // jika berhasil maka buka promise dengan then
+  adminModel
+    .destroy({ where: { id: idAdmin } })
+    // jika berhasil maka buka promise dengan then
     .then((fields) => {
       return res.json({
         succes: true,
@@ -154,7 +163,7 @@ exports.deleteAdmin = async (req, res) => {
         message: "Data admin has been deleted",
       });
     })
-  // jika gagal maka akan buka promise menggunakan catch
+    // jika gagal maka akan buka promise menggunakan catch
     .catch((err) => {
       return res.json({
         succes: false,
