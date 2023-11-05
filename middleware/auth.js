@@ -40,4 +40,30 @@ const authenticate = async (req, res) => {
   }
 };
 
-module.exports = { authenticate };
+const authorize = (req, res, next) => {
+  let headers = req.headers.authorization;
+
+  let tokenKey = headers && headers.split(" ")[1];
+  if (tokenKey === null || tokenKey === "") {
+    return res.json({
+      success: false,
+      message: 'Unauthorized User'
+    });
+  }
+
+  let secret = "rahasia-sangat-rahasia";
+  jwt.verify(tokenKey, secret, (err, user) => {
+    if (err) {
+      return res.json({
+        success: false,
+        message: "Invalid Token"
+      });
+    }
+
+    // Jika tidak ada masalah maka middleware mengizinkan
+    next();
+  });
+};
+
+
+module.exports = { authenticate, authorize };
