@@ -2,12 +2,13 @@
 const express = require('express')
 const app = express()
 app.subscribe(express.json())
+const { validateAdmin } = require('../middleware/validate')
 const { authorize } = require('../middleware/auth')
 const adminController = require('../controller/admin.controller')
 //menggunakan endpoint
 app.get('/', [authorize], adminController.getAllAdmin)
-app.post('/', [authorize], adminController.addAdmin)
-app.put('/:id', [authorize], adminController.updateAdmin)
+app.post('/', [validateAdmin], [authorize], adminController.addAdmin)
+app.put('/:id', [validateAdmin], [authorize], adminController.updateAdmin)
 app.delete('/:id', [authorize], adminController.deleteAdmin)
 //mengeksport variabel supaya bisa digunakan di file lain
 module.exports = app
