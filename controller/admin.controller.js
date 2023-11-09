@@ -1,10 +1,10 @@
 // mengimport variabel dari file lain dan dependensi yang dibutuhkan
-const upload = require("./upload-foto-admin").single("foto");
+const { uploadAdmin } = require("./upload-foto-admin").single("foto");
 const adminModel = require("../models/index").admin;
 const Op = require("sequelize").Op;
 const path = require("path");
 const fs = require("fs");
-const md5 = require('md5')
+const md5 = require("md5");
 
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.getAllAdmin = async (req, res) => {
@@ -38,12 +38,12 @@ exports.findAllAdmin = async (req, res) => {
 
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.addAdmin = async (req, res) => {
-  // mengupload data admin
-  upload(req, res, async (err) => {
+  // menguploadAdmin data admin
+  uploadAdmin(req, res, async (err) => {
     // jika terjadi eror
     if (err) return res.json({ message: err });
     // jika tidak ada file yang diapload
-    if (!req.file) return res.json({ message: "nothing to upload" });
+    if (!req.file) return res.json({ message: "nothing to uploadAdmin" });
 
     // menyiapkan data
     let newAdmin = {
@@ -57,7 +57,7 @@ exports.addAdmin = async (req, res) => {
     // Enkripsi kata sandi menggunakan MD5
     newAdmin.password = md5(req.body.password);
 
-    // menjalankan proses upload sesuai dengan data
+    // menjalankan proses uploadAdmin sesuai dengan data
     adminModel
       .create(newAdmin)
       // jika berhasil maka buka promise dengan then
@@ -80,8 +80,8 @@ exports.addAdmin = async (req, res) => {
 
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.updateAdmin = async (req, res) => {
-  // menjalankan proses upload
-  upload(req, res, async (error) => {
+  // menjalankan proses uploadAdmin
+  uploadAdmin(req, res, async (error) => {
     //jika terjadi error
     if (error) return res.json({ message: error });
     //mengambil id admin dengan params
@@ -94,10 +94,10 @@ exports.updateAdmin = async (req, res) => {
       username: req.body.username,
       foto: req.file.filename,
     };
-        
+
     // Enkripsi kata sandi menggunakan MD5
     dataAdmin.password = md5(req.body.password);
-    
+
     //jika ada file yang dipilih
     if (req.file) {
       //menyiapkan data admin untuk tempat menaruh foto
@@ -114,7 +114,7 @@ exports.updateAdmin = async (req, res) => {
           console.log(idAdmin, err);
         });
       }
-      // mengupload foto baru
+      // menguploadAdmin foto baru
       dataAdmin.foto = req.file.filename;
     }
     // menjalankan proses update
