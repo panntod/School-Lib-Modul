@@ -1,5 +1,5 @@
 // mengimport variabel dari file lain dan dependensi yang dibutuhkan
-const upload = require("./upload-cover").single(`cover`);
+const {uploadCover} = require("./upload-foto").single(`cover`);
 const bookModel = require("../models/index").book;
 const Op = require("sequelize").Op;
 const path = require("path");
@@ -37,12 +37,12 @@ exports.findBook = async (req, res) => {
 
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.addBook = async (req, res) => {
-  // jalan kan function upload
-  upload(req, res, async (error) => {
+  // jalan kan function uploadCover
+  uploadCover(req, res, async (error) => {
     // jika ada error
     if (error) return res.json({ message: error });
-    //jika tidak ada file yang di upload
-    if (!req.file) return res.json({ message: "nothing to upload" });
+    //jika tidak ada file yang di uploadCover
+    if (!req.file) return res.json({ message: "nothing to uploadCover" });
     //menyiapkan data
     let newBook = {
       isbn: req.body.isbn,
@@ -75,8 +75,8 @@ exports.addBook = async (req, res) => {
 
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.updateBook = async (request, response) => {
-  //menjalankan fungsi upload
-  upload(request, response, async (error) => {
+  //menjalankan fungsi uploadCover
+  uploadCover(request, response, async (error) => {
     //jika ada error
     if (error) return response.json({ message: error });
     //mengambil id menggunakan params
@@ -107,7 +107,7 @@ exports.updateBook = async (request, response) => {
       // memperbarui foto sesuai dengan inputan
       book.cover = request.file.filename;
     }
-    //jalankan proses upload
+    //jalankan proses uploadCover
     bookModel.update(book, { where: { id: id } })
       //jika berhasil maka buka promise dengan then
       .then((result) => {
