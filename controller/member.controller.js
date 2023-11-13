@@ -1,5 +1,5 @@
 // mengimport variabel dari file lain dan dependensi yang dibutuhkan
-const { uploadMember } = require("./upload-foto").single("foto");
+const { uploadMember } = require("./upload-foto")
 const memberModel = require("../models/index").member;
 const Op = require("sequelize").Op;
 const path = require("path");
@@ -42,7 +42,7 @@ exports.findMember = async function (req, res) {
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.addMember = async (req, res) => {
   // menggunakan function uploadMember
-  uploadMember(req, res, async (error) => {
+  uploadMember.single("foto")(req, res, async (error) => {
     // jika terjadi eror
     if (error) return res.json({ message: error });
     //jika tidak ada file yang di uploadMember
@@ -78,7 +78,7 @@ exports.addMember = async (req, res) => {
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.updateMember = async (req, res) => {
   //menggunakan function uploadMember
-  uploadMember(req, res, async (error) => {
+  uploadMember.single("foto")(req, res, async (error) => {
     //jika terjadi error
     if (error) return res.json({ message: error });
     //mengambil id menggunakan params
