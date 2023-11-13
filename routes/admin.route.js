@@ -7,8 +7,8 @@ const { authorize } = require('../middleware/auth')
 const adminController = require('../controller/admin.controller')
 //menggunakan endpoint
 app.get('/', [authorize], adminController.getAllAdmin)
-app.post('/', [validateAdmin], [authorize], adminController.addAdmin)
-app.put('/:id', [validateAdmin], [authorize], adminController.updateAdmin)
+app.post('/', [authorize], adminController.addAdmin)
+app.put('/:id', [authorize], adminController.updateAdmin)
 app.delete('/:id', [authorize], adminController.deleteAdmin)
 //mengeksport variabel supaya bisa digunakan di file lain
 module.exports = app
