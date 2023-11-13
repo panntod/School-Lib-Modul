@@ -1,5 +1,5 @@
 // mengimport variabel dari file lain dan dependensi yang dibutuhkan
-const { uploadAdmin } = require("./upload-foto-admin").single("foto");
+const { uploadAdmin } = require("./upload-foto")
 const adminModel = require("../models/index").admin;
 const Op = require("sequelize").Op;
 const path = require("path");
@@ -39,7 +39,7 @@ exports.findAllAdmin = async (req, res) => {
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.addAdmin = async (req, res) => {
   // menguploadAdmin data admin
-  uploadAdmin(req, res, async (err) => {
+  uploadAdmin.single("foto")(req, res, async (err) => {
     // jika terjadi eror
     if (err) return res.json({ message: err });
     // jika tidak ada file yang diapload
@@ -81,7 +81,7 @@ exports.addAdmin = async (req, res) => {
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.updateAdmin = async (req, res) => {
   // menjalankan proses uploadAdmin
-  uploadAdmin(req, res, async (error) => {
+  uploadAdmin.single("foto")(req, res, async (error) => {
     //jika terjadi error
     if (error) return res.json({ message: error });
     //mengambil id admin dengan params
