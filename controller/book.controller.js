@@ -1,5 +1,5 @@
 // mengimport variabel dari file lain dan dependensi yang dibutuhkan
-const {uploadCover} = require("./upload-foto").single(`cover`);
+const { uploadCover } = require("./upload-foto");
 const bookModel = require("../models/index").book;
 const Op = require("sequelize").Op;
 const path = require("path");
@@ -38,7 +38,7 @@ exports.findBook = async (req, res) => {
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.addBook = async (req, res) => {
   // jalan kan function uploadCover
-  uploadCover(req, res, async (error) => {
+  uploadCover.single("cover")(req, res, async (error) => {
     // jika ada error
     if (error) return res.json({ message: error });
     //jika tidak ada file yang di uploadCover
@@ -54,7 +54,8 @@ exports.addBook = async (req, res) => {
       cover: req.file.filename,
     };
     //menjalankan proses membuat
-    bookModel.create(newBook)
+    bookModel
+      .create(newBook)
       //jika berhasil maka buka promise dengan then
       .then((result) => {
         return res.json({
@@ -76,7 +77,7 @@ exports.addBook = async (req, res) => {
 //mengeksport variabel supaya bisa digunakan di file lain
 exports.updateBook = async (request, response) => {
   //menjalankan fungsi uploadCover
-  uploadCover(request, response, async (error) => {
+  uploadCover.single("cover")(request, response, async (error) => {
     //jika ada error
     if (error) return response.json({ message: error });
     //mengambil id menggunakan params
@@ -97,7 +98,11 @@ exports.updateBook = async (request, response) => {
       // menyimpan foto lama di variabel
       const oldCoverBook = selectedBook.cover;
       //menyiapkan nama foto sesuai dengan nama folder
-      const pathCover = path.join(__dirname, `../cover`, oldCoverBook.toString());
+      const pathCover = path.join(
+        __dirname,
+        `../cover`,
+        oldCoverBook.toString()
+      );
       //jika ada foto lama maka akan dihapus
       if (fs.existsSync(pathCover)) {
         fs.unlink(pathCover, (error) => {
@@ -108,7 +113,8 @@ exports.updateBook = async (request, response) => {
       book.cover = request.file.filename;
     }
     //jalankan proses uploadCover
-    bookModel.update(book, { where: { id: id } })
+    bookModel
+      .update(book, { where: { id: id } })
       //jika berhasil maka buka promise dengan then
       .then((result) => {
         return response.json({
@@ -142,7 +148,8 @@ exports.deleteBook = async (req, res) => {
     fs.unlink(pathCover, (error) => console.log(error));
   }
   //menjalankan perintah hapus
-  bookModel.destroy({ where: { id: id } })
+  bookModel
+    .destroy({ where: { id: id } })
     //jika berhasil maka buka promise dengan then
     .then((result) => {
       return res.json({
