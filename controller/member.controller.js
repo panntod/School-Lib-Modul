@@ -97,7 +97,7 @@ exports.updateMember = async (req, res) => {
       // mengambil foto lama dan disimpan divariabek
       const oldFoto = selectedMember.foto;
       // menyesuaikan nama sesuai dengan path nya
-      const pathFotoMurid = path.join(__dirname,`../foto-member`,oldFoto)
+      const pathFotoMurid = path.join(__dirname,`../images/foto-member`,oldFoto)
       // jika ada data yang muncul maka akan dihapus
       if (fs.existsSync(pathFotoMurid)) {
         fs.unlinkSync(pathFotoMurid, (err) => console.log(idMember, err) );
