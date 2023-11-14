@@ -107,7 +107,7 @@ exports.updateAdmin = async (req, res) => {
       // menyiapkan data foto
       const oldFoto = selectedAdmin.foto;
       // membuat nama baru untuk file yang disimpan sesuai dengan folder
-      const pathFotoAdmin = path.join(__dirname, `../foto-admin`, oldFoto);
+      const pathFotoAdmin = path.join(__dirname, `../images/foto-admin`, oldFoto);
       // jika sudah ada foto lama maka akan dihapus
       if (fs.existsSync(pathFotoAdmin)) {
         fs.unlink(pathFotoAdmin, (err) => {
@@ -147,7 +147,7 @@ exports.deleteAdmin = async (req, res) => {
   //mengambil foto disimpan divariabel foto lama
   const oldFoto = admin.foto;
   // menamakan foto sesuai dengan foldernya
-  const pathFotoAdmin = path.join(__dirname, `../foto-admin`, oldFoto);
+  const pathFotoAdmin = path.join(__dirname, `../iamges/foto-admin`, oldFoto);
   // jika foto ada maka akan di hapus
   if (fs.existsSync(pathFotoAdmin)) {
     fs.unlinkSync(pathFotoAdmin, (error) => console.log(error));
