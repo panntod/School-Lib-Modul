@@ -100,7 +100,7 @@ exports.updateBook = async (request, response) => {
       //menyiapkan nama foto sesuai dengan nama folder
       const pathCover = path.join(
         __dirname,
-        `../cover`,
+        `../images/cover`,
         oldCoverBook.toString()
       );
       //jika ada foto lama maka akan dihapus
@@ -142,7 +142,7 @@ exports.deleteBook = async (req, res) => {
   //menyiapkan foto book di variabel
   const oldCoverBook = book.cover;
   //menamakan foto sesuai dengan nama folder
-  const pathCover = path.join(__dirname, `../cover`, oldCoverBook.toString());
+  const pathCover = path.join(__dirname, `../images/cover`, oldCoverBook.toString());
   //jika foto ditemukan maka akan dihapus
   if (fs.existsSync(pathCover)) {
     fs.unlink(pathCover, (error) => console.log(error));
