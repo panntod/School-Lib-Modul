@@ -65,3 +65,39 @@ sequelize-cli init
 Perintah sequelize-cli init akan membuat struktur proyek Sequelize yang standar, termasuk folder config, models, migrations, dan seeders. Ini akan mempersiapkan proyek Anda untuk mulai menggunakan Sequelize dengan basis data yang sudah ditentukan.
 
 Pastikan untuk menyesuaikan konfigurasi basis data Anda di file config/config.json setelah inisialisasi agar Sequelize dapat terhubung ke basis data yang diinginkan.
+
+untuk dokumentasi lengkap bisa dilihat di [`Sequelize Documentation`](https://sequelize.org/).
+
+
+## Pengenalan Express Js
+
+Express.js adalah framework web yang berbasis pada Node.js yang memudahkan pembuatan aplikasi web dengan Node. Express menyediakan berbagai fitur untuk membangun server HTTP dengan mudah, seperti routing, middleware, pengelolaan permintaan dan respons, dan masih banyak lagi.
+### Beberapa Fitur di Express Js
+- Routing: Express memungkinkan definisi rute untuk menangani permintaan HTTP ke berbagai endpoint. Misalnya:
+```js
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('Halo, ini adalah halaman utama!');
+});
+
+app.post('/users', (req, res) => {
+    // Logic untuk menambah pengguna ke basis data
+    res.send('Pengguna berhasil ditambahkan!');
+});
+```
+- Middleware: Middleware adalah fungsi-fungsi yang dijalankan sebelum permintaan tiba ke handler akhir. Contohnya adalah middleware untuk logging, autentikasi, manipulasi data, dll.
+```js
+app.use(express.json()); // Middleware untuk meng-handle body JSON pada request
+app.use(loggerMiddleware); // Contoh middleware untuk logging
+```
+- Handler/ Controller untuk Permintaan HTTP: Express memungkinkan Anda menangani berbagai jenis permintaan HTTP seperti GET, POST, PUT, DELETE, dll.
+```js
+app.get('/products/:id', (req, res) => {
+    const productId = req.params.id;
+    // Logika untuk mengambil informasi produk berdasarkan ID
+    res.send(`Informasi produk dengan ID ${productId}`);
+});
+```
+untuk dokumentasi lengkap bisa dilihat di [`Express Documentation`](https://expressjs.com/).
