@@ -128,3 +128,104 @@ app.get('/products/:id', (req, res) => {
 untuk dokumentasi lengkap bisa dilihat di [`Express Documentation`](https://expressjs.com/).
 
 
+## Pembuatan Aplikasi School Library
+`langkah 1` :  
+jalankan perintah:
+```
+npm init --y 
+```
+
+`langkah 2` :
+instal dependencies:
+```
+npm install body-parser cors express fs joi jsonwebtoken md5 multer mysql2 path sequelize
+```
+
+`langkah 3` :
+buat database dengan menjalankan perintah ini:
+```sql
+CREATE DATABASE school_library;
+```
+sesuaikan `config.json` dengan database yang dimiliki:
+```json
+"development": {
+    "username": "root",
+    "password": null,
+    "database": "school_library",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+},
+```
+
+`langkah 4` :
+sequelize migration dan model:
+Dalam kasus ini kita akan membuat struktur tabel seperti berikut ini.
+![foto tabel designer]
+
+*Struktur tabel yang dibuat terlebih dahulu adalah tabel yang bersifat parent (tidak ada relasi ke tabel yang lain)
+
+- pembuatan migration dan model `book`, jalankan perintah ini:
+```
+npx sequelize-cli model:generate --name Book --attributes isbn:string,title:string,author:string,publisher:string,category:string,stock:integer,cover:string
+```
+- pembuatan migration dan model `member`, jalankan perintah ini:
+```
+npx sequelize-cli model:generate --name Member --attributes name:string,gender:string,contact:string,address:string
+```
+- pembuatan migration dan model `admin`, jalankan perintah ini:
+```
+npx sequelize-cli model:generate --name Admin --attributes name:string,contact:string,address:string,username:string,password:string
+```
+- pembuatan migration dan model `borrow`, jalankan perintah ini:
+```
+npx sequelize-cli model:generate --name Borrow --attributes memberID:integer,adminID:integer,date_of_borrow:date,date_of_return:date,status:boolean
+```
+- pembuatan migration dan model `details_of_borrow`, jalankan perintah ini:
+```
+npx sequelize-cli model:generate --name DetailOfBorrow --attributes borrowID:integer,bookID:integer,qty:integer
+```
+
+`langkah 5` :
+Sequelize Relationship:
+
+sesuaikan semua isi di `models`, contoh:
+Relasi tabel “admins” dan tabel “borrows” dengan key “id” dari tabel “admins” dan key “adminID” dari tabel “borrows”. Dari sisi tabel “admins”, relasi yang terjadi adalah “each admin has many borrowed books”. Oleh karena itu di file model “admin” kita akan menambahkan code untuk membuat relasi tersebut.
+```js
+class admin extends Model {
+   //Ini adalah metode statis yang digunakan untuk mendefinisikan asosiasi atau hubungan antara model "admin" dengan model-model lain. 
+   static associate(models) {
+     this.hasMany(models.borrow, {
+       foreignKey: `adminID`, as: "borrow"
+     })
+   }
+}
+```
+
+Sedangkan relasi dari sisi tabel “borrows”, relasi yang terjadi adalah “each
+borrowed book belongs to one admin”. Oleh karena itu di file model “borrow”
+kita akan menambahkan code untuk mengimplementasi relasi tersebut.
+```js
+class borrow extends Model {
+       //Ini adalah metode statis yang digunakan untuk mendefinisikan asosiasi atau hubungan antara model "borrow" dengan model-model lain. 
+       static associate(models) {
+        this.belongsTo(models.admin)
+        this.belongsTo(models.member)
+        this.hasMany(models.detail_of_borrow, {
+          foreignKey: `borrowID`, as: "detail_of_borrow"
+        })
+      }
+}
+```
+*lakukan kepada semua table yang memiliki relation ship
+
+`langkah 6` :
+Lakukan migrate database dengan perintah:
+```
+npx sequelize-cli db:migrate
+```
+
+jika terjadi error jalankan perintah ini:
+```
+npx sequelize-cli db:migrate:undo:all
+```
+*pastikan urutan file di `/migration` adalah `book`, `member`, `admin`, `borrow`, `detail_of_borrow`, lalu ulangi `db:migrate`
