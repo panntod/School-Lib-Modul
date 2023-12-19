@@ -39,3 +39,29 @@ HTTP adalah singkatan dari <strong>Hypertext Transfer Protocol</strong>. Protoko
 - PATCH: Method ini digunakan untuk memperbarui sebagian kecil dari resource di server. Dibandingkan dengan PUT yang menggantikan seluruh resource, PATCH digunakan untuk melakukan perubahan kecil atau spesifik pada resource.
 
 untuk dokumentasi lengkap bisa dilihat di [`Modul Pengenalan REST API`](https://drive.google.com/drive/folders/10cFXJ3iqhzZaIs8GOb0RZSjKJZCEOG-X?usp=drive_link).
+
+## Pengenalan Sequelize
+
+Sequelize adalah sebuah ORM (Object-Relational Mapping) untuk Node.js yang mendukung berbagai macam basis data relasional seperti MySQL, PostgreSQL, SQLite, dan lainnya. Ini memudahkan pengembang dalam berinteraksi dengan basis data menggunakan objek JavaScript, mengabstraksi query SQL dan memungkinkan manipulasi data dengan lebih mudah.
+
+### Cara instalasi Sequelize:
+```cmd
+#npm
+npm install --save sequelize
+
+#yarn
+yarn add sequelize
+
+#pnpm
+pnpm install sequelize
+```
+### Cara membuat Sequelize init:
+- Jalankan perintah:
+```cmd
+npx sequelize-cli init
+#Atau jika Anda sudah menginstall Sequelize CLI secara global:
+sequelize-cli init
+```
+Perintah sequelize-cli init akan membuat struktur proyek Sequelize yang standar, termasuk folder config, models, migrations, dan seeders. Ini akan mempersiapkan proyek Anda untuk mulai menggunakan Sequelize dengan basis data yang sudah ditentukan.
+
+Pastikan untuk menyesuaikan konfigurasi basis data Anda di file config/config.json setelah inisialisasi agar Sequelize dapat terhubung ke basis data yang diinginkan.
