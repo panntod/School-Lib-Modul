@@ -67,7 +67,28 @@ Perintah sequelize-cli init akan membuat struktur proyek Sequelize yang standar,
 Pastikan untuk menyesuaikan konfigurasi basis data Anda di file config/config.json setelah inisialisasi agar Sequelize dapat terhubung ke basis data yang diinginkan.
 
 untuk dokumentasi lengkap bisa dilihat di [`Sequelize Documentation`](https://sequelize.org/).
+### Sequelize Relationship
+Sequelize relationships adalah cara untuk menghubungkan antara model-model data dalam basis data relasional menggunakan Sequelize, sehingga model-model tersebut bisa saling terkait satu sama lain.
 
+Ini mirip dengan hubungan antar tabel dalam basis data relasional. Dalam Sequelize, terdapat beberapa jenis hubungan antara model-model:
+
+- `One-to-One`: Setiap entitas pada satu model terhubung dengan tepat satu entitas pada model lain. Misalnya, setiap User memiliki satu Profile.
+
+- `One-to-Many`: Setiap entitas pada satu model terhubung dengan banyak entitas pada model lain. Contohnya, satu Author dapat memiliki banyak Books.
+
+- `Many-to-Many`: Banyak entitas pada satu model terhubung dengan banyak entitas pada model lain. Sebagai contoh, Student dapat memiliki banyak Subjects, dan setiap Subject bisa memiliki banyak Students.
+
+Sequelize menyediakan metode untuk mendefinisikan dan mengonfigurasi jenis-jenis hubungan ini antara model-model. Anda dapat menggunakan fungsi-fungsi seperti `belongsTo`, `hasMany`, `hasOne`, dan `belongsToMany` untuk menentukan bagaimana model-model saling berhubungan.
+
+- `belongsTo`: Menghubungkan model dengan hubungan satu-ke-satu atau satu-ke-banyak dimana model yang terkait (target) berada di sisi yang mempunyai kunci asing (foreign key). Misalnya, jika Anda memiliki model Comment yang 'belongsTo' Post, maka setiap Comment akan memiliki kunci asing yang menunjuk ke Post.
+
+- `hasMany`: Hubungan sebaliknya dari belongsTo. Ini menghubungkan model dengan hubungan satu-ke-banyak dimana model yang terkait (target) memiliki kunci asing yang merujuk kembali ke model asal. Contohnya, jika Post memiliki 'hasMany' Comment, setiap Post dapat memiliki banyak Comment.
+
+- `hasOne`: Menghubungkan model dengan hubungan satu-ke-satu. Ini serupa dengan belongsTo, tetapi menegaskan bahwa setiap entitas dalam model memiliki tepat satu entitas yang terkait dalam model lain.
+
+- `belongsToMany`: Digunakan ketika hubungan antara model-model melibatkan asosiasi banyak-ke-banyak. Misalnya, jika Anda memiliki model User dan model Group, dan seorang User dapat berada di banyak Group dan sebaliknya, Anda akan menggunakan 'belongsToMany'.
+
+Dengan menggunakan Sequelize relationships, Anda dapat melakukan operasi join, mengambil data terkait dari beberapa tabel sekaligus, dan membuat kueri yang lebih kompleks untuk mengelola data dalam basis data relasional dengan lebih mudah dan terstruktur.
 
 ## Pengenalan Express Js
 
