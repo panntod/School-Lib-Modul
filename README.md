@@ -159,8 +159,9 @@ sesuaikan `config.json` dengan database yang dimiliki:
 
 `langkah 4` :
 sequelize migration dan model:
+
 Dalam kasus ini kita akan membuat struktur tabel seperti berikut ini.
-![foto tabel designer]
+![foto table desiger](https://github.com/panntod/School-Lib-Modul/blob/main/table-designer.png?raw=true)
 
 *Struktur tabel yang dibuat terlebih dahulu adalah tabel yang bersifat parent (tidak ada relasi ke tabel yang lain)
 
