@@ -256,3 +256,19 @@ npx sequelize-cli db:migrate:undo:all
     9. routes
         - auth
     10. server
+
+    Tata cara clone repositori ini
+    1. jalankan perintah:
+    ```git
+    git clone https://github.com/panntod/School-Lib-Modul.git
+    ```
+    2. masuk ke direktori, lalu jalankan perintah ini:
+    ```bash
+    npm install
+    or
+    pnpm install
+    ```
+    3. untuk menjalankan aplikasi init gunakan perintah ini:
+    ```bash
+    npm start
+    ```
