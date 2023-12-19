@@ -89,6 +89,10 @@ Sequelize menyediakan metode untuk mendefinisikan dan mengonfigurasi jenis-jenis
 - `belongsToMany`: Digunakan ketika hubungan antara model-model melibatkan asosiasi banyak-ke-banyak. Misalnya, jika Anda memiliki model User dan model Group, dan seorang User dapat berada di banyak Group dan sebaliknya, Anda akan menggunakan 'belongsToMany'.
 
 Dengan menggunakan Sequelize relationships, Anda dapat melakukan operasi join, mengambil data terkait dari beberapa tabel sekaligus, dan membuat kueri yang lebih kompleks untuk mengelola data dalam basis data relasional dengan lebih mudah dan terstruktur.
+### Sequelize Migration dan Model
+`Sequelize Migration`: Ini adalah alat yang memungkinkan Anda untuk mengelola skema basis data. Migration adalah file JavaScript yang berisi instruksi untuk membuat atau mengubah struktur tabel dan kolom dalam basis data Anda. Dengan menggunakan migration, Anda dapat membuat perubahan pada struktur basis data secara terkendali dan dapat diterapkan secara teratur ke berbagai lingkungan (development, production, dll.) tanpa kehilangan data.
+
+`Sequelize Model`: Model dalam Sequelize adalah representasi dari tabel dalam basis data dalam bentuk objek JavaScript. Setiap model biasanya terkait dengan tabel dalam basis data dan memungkinkan Anda untuk melakukan operasi CRUD (Create, Read, Update, Delete) pada data dalam tabel tersebut menggunakan objek JavaScript. Anda dapat mendefinisikan struktur, hubungan, validasi, dan operasi lainnya pada model untuk mengelola data secara terstruktur.
 
 ## Pengenalan Express Js
 
@@ -122,3 +126,5 @@ app.get('/products/:id', (req, res) => {
 });
 ```
 untuk dokumentasi lengkap bisa dilihat di [`Express Documentation`](https://expressjs.com/).
+
+
