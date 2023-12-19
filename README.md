@@ -229,3 +229,29 @@ jika terjadi error jalankan perintah ini:
 npx sequelize-cli db:migrate:undo:all
 ```
 *pastikan urutan file di `/migration` adalah `book`, `member`, `admin`, `borrow`, `detail_of_borrow`, lalu ulangi `db:migrate`
+
+- Setelah ini kalian bisa melanjutkan dengan membaca  [`3. Modul Node - Sequelize - Part 2`](https://drive.google.com/drive/folders/10cFXJ3iqhzZaIs8GOb0RZSjKJZCEOG-X?usp=drive_link) atau melihat code yang sudah saya publikasi kan di repositori ini
+
+    Urutan Pembuatan file: 
+    1. config (done)
+    2. migration (done)
+    3. models (done)
+    4. seeders (optional)
+    5. controller
+        - upload
+        - book
+        - admin
+        - member
+        - borrow
+    6. routes
+        - book
+        - admin
+        - member
+        - borrow
+    7. image (folder kosong)
+    8. middleware
+        - auth
+        - validate
+    9. routes
+        - auth
+    10. server
