@@ -238,42 +238,42 @@ npx sequelize-cli db:migrate:undo:all
 
 - Setelah ini kalian bisa melanjutkan dengan membaca  [`3. Modul Node - Sequelize - Part 2`](https://drive.google.com/drive/folders/10cFXJ3iqhzZaIs8GOb0RZSjKJZCEOG-X?usp=drive_link) atau melihat code yang sudah saya publikasi kan di repositori ini
 
-    Urutan Pembuatan file: 
-    1. config (done)
-    2. migration (done)
-    3. models (done)
-    4. seeders (optional)
-    5. controller
-        - upload
-        - book
-        - admin
-        - member
-        - borrow
-    6. routes
-        - book
-        - admin
-        - member
-        - borrow
-    7. image (folder kosong)
-    8. middleware
-        - auth
-        - validate
-    9. routes
-        - auth
-    10. server
+Urutan Pembuatan file: 
+1. config (done)
+2. migration (done)
+3. models (done)
+4. seeders (optional)
+5. controller
+     - upload
+     - book
+     - admin
+     - member
+     - borrow
+6. routes
+     - book
+     - admin
+     - member
+     - borrow
+7. image (folder kosong)
+8. middleware
+     - auth
+     - validate
+9. routes
+     - auth
+10. server
 
-    Tata cara clone repositori ini
-    1. jalankan perintah:
-    ```git
-    git clone https://github.com/panntod/School-Lib-Modul.git
-    ```
-    2. masuk ke direktori, lalu jalankan perintah ini:
-    ```bash
-    npm install
-    or
-    pnpm install
-    ```
-    3. untuk menjalankan aplikasi init gunakan perintah ini:
-    ```bash
-    npm start
-    ```
+Tata cara clone repositori ini
+- jalankan perintah:
+```git
+git clone https://github.com/panntod/School-Lib-Modul.git
+```
+- masuk ke direktori, lalu jalankan perintah ini:
+```bash
+npm install
+or
+pnpm install
+```
+- untuk menjalankan aplikasi init gunakan perintah ini:
+```bash
+npm start
+```
