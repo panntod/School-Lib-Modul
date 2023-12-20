@@ -166,7 +166,9 @@ sesuaikan `config.json` dengan database yang dimiliki:
 sequelize migration dan model:
 
 Dalam kasus ini kita akan membuat struktur tabel seperti berikut ini.
-![foto table desiger](https://github.com/panntod/School-Lib-Modul/blob/main/table-designer.png?raw=true)
+<div align="center">
+    <img src="https://github.com/panntod/School-Lib-Modul/blob/main/table-designer.png?raw=true" alt="foto table desiger" style="display: block; margin-left: auto; margin-right: auto;">
+</div>
 
 *Struktur tabel yang dibuat terlebih dahulu adalah tabel yang bersifat parent (tidak ada relasi ke tabel yang lain)
 
