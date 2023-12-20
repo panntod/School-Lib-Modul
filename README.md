@@ -140,6 +140,11 @@ instal dependencies:
 ```
 npm install body-parser cors express fs joi jsonwebtoken md5 multer mysql2 path sequelize
 ```
+lalu jalankan perintah ini untuk menginisiasikan sequelize
+```
+npx sequelize-cli init
+```
+*jika terjadi error `ERR!` code ENOENT || `ERR!` syscall istat maka jalankan perintah ini terlebih dahulu ```npm install npm -g``` lalu ulangi inisialisasi sequelize
 
 `langkah 3` :
 buat database dengan menjalankan perintah ini:
@@ -217,7 +222,7 @@ class borrow extends Model {
       }
 }
 ```
-*lakukan kepada semua table yang memiliki relation ship
+*lakukan kepada semua table yang memiliki relationship
 
 `langkah 6` :
 Lakukan migrate database dengan perintah:
