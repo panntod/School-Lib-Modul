@@ -240,7 +240,7 @@ npx sequelize-cli db:migrate:undo:all
 
 - Setelah ini kalian bisa melanjutkan dengan membaca  [`3. Modul Node - Sequelize - Part 2`](https://drive.google.com/drive/folders/10cFXJ3iqhzZaIs8GOb0RZSjKJZCEOG-X?usp=drive_link) atau melihat code yang sudah saya publikasi kan di repositori ini
 
-Urutan Pembuatan file: 
+## Urutan Pembuatan file: 
 1. config (done)
 2. migration (done)
 3. models (done)
@@ -264,7 +264,7 @@ Urutan Pembuatan file:
      - auth
 10. server
 
-Tata cara clone repositori ini
+## Tata cara clone repositori ini
 - jalankan perintah:
 ```git
 git clone https://github.com/panntod/School-Lib-Modul.git
